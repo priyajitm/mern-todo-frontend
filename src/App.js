@@ -4,6 +4,8 @@ import axios from "axios";
 import "./App.css";
 import AddTask from "./views/AddTask";
 import TasksContainer from "./views/TasksContainer";
+import SignUp from "./views/SignUp";
+import Login from "./views/Login";
 
 const App = () => {
   const [tasks, setTasks] = useState("");
@@ -26,7 +28,11 @@ const App = () => {
       completed: false,
     };
     const res = axios.post(ApiUrl, taskData);
-    setTasks([...tasks, taskData]);
+
+    if (res === 201) {
+      setTasks([...tasks, taskData]);
+    }
+    
   };
 
   const completeTask = async (id) => {
@@ -99,22 +105,24 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <h1>My ToDo List</h1>
-      <AddTask updateTask={addTasks} />
-      <TasksContainer
-        tasksList={tasks && tasks.filter((task) => !task.completed)}
-        type="pending"
-        primaryButtonClick={completeTask}
-        updateTask={updateTask}
-      />
-      <TasksContainer
-        tasksList={tasks && tasks.filter((task) => task.completed)}
-        type="completed"
-        primaryButtonClick={undoTask}
-        secondaryButtonClick={deleteTask}
-      />
-    </div>
+    // <div className="container">
+    //   <h1>My ToDo List</h1>
+    //   <AddTask updateTask={addTasks} />
+    //   <TasksContainer
+    //     tasksList={tasks && tasks.filter((task) => !task.completed)}
+    //     type="pending"
+    //     primaryButtonClick={completeTask}
+    //     updateTask={updateTask}
+    //   />
+    //   <TasksContainer
+    //     tasksList={tasks && tasks.filter((task) => task.completed)}
+    //     type="completed"
+    //     primaryButtonClick={undoTask}
+    //     secondaryButtonClick={deleteTask}
+    //   />
+    // </div>
+    <Login />
+
   );
 };
 
