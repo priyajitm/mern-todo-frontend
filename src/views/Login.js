@@ -1,17 +1,26 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post("/login", {
-      email,
+    const res = await axios.post("/login", {
+      username: email,
       password,
     });
+
+    if (res.status === 200) {
+      localStorage.setItem('auth', true)
+      return navigate("/dashboard");
+    }
+    
   };
 
   return (
@@ -32,6 +41,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className="form-btn">Login</button>
+        <p>No Registered? <Link to='/register'>Register Now</Link></p>
       </form>
     </div>
   );
