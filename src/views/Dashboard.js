@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import AddTask from "./AddTask";
 import TasksContainer from "./TasksContainer";
 
+const baseURL = 'https://motionless-rose-loafers.cyclic.app'
+
 const Dashboard = () => {
   const navigate = useNavigate();
 
@@ -23,13 +25,13 @@ const Dashboard = () => {
   }, []);
 
   const getTasks = async () => {
-    const res = await axios.get("/gettasks");
+    const res = await axios.get(`${baseURL}/gettasks`);
     setTasks(res.data);
   };
 
   const addTasks = async (taskName) => {
     const id = uuidv4();
-    const ApiUrl = "/addtask";
+    const ApiUrl = `${baseURL}/addtask`;
     const taskData = {
       id: id,
       title: taskName,
@@ -43,7 +45,7 @@ const Dashboard = () => {
   };
 
   const completeTask = async (id) => {
-    const ApiUrl = "/update";
+    const ApiUrl = `${baseURL}/update`;
     const taskData = {
       id: id,
       completed: true,
@@ -63,7 +65,7 @@ const Dashboard = () => {
   };
 
   const undoTask = async (id) => {
-    const ApiUrl = "/update";
+    const ApiUrl = `${baseURL}/update`;
     const taskData = {
       id: id,
       completed: false,
@@ -83,7 +85,7 @@ const Dashboard = () => {
   };
 
   const deleteTask = async (id) => {
-    const ApiUrl = "/delete";
+    const ApiUrl = `${baseURL}/delete`;
     const res = axios.post(`${ApiUrl}/${id}`);
     if (res === 200) {
       const taskData = tasks.filter((task) => task.taskid !== id);
@@ -92,7 +94,7 @@ const Dashboard = () => {
   };
 
   const updateTask = async (id, taskName) => {
-    const ApiUrl = "/update";
+    const ApiUrl = `${baseURL}/update`;
     const taskData = {
       id: id,
       title: taskName,
@@ -112,7 +114,7 @@ const Dashboard = () => {
   };
 
   const logout = async () => {
-    const res = await axios.post('/logout');
+    const res = await axios.post(`${baseURL}/logout`);
     if (res.status === 200) {
       localStorage.setItem('auth', false)
       return navigate('/');

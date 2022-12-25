@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
+const baseURL = 'https://motionless-rose-loafers.cyclic.app'
+
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,8 +14,11 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const ApiUrl = `${baseURL}/register`;
+    
     if (password === confirmPassword) {
-      const res = await axios.post("/register", {
+      const res = await axios.post(ApiUrl, {
         name,
         email,
         password,
