@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const isAuthenticated = localStorage.getItem('auth')
-    if (isAuthenticated == 'true') {
+    if (isAuthenticated === 'true') {
       setIsAuth(true)
     }
   }, [])
